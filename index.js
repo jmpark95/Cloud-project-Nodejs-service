@@ -1,0 +1,48 @@
+const express = require("express");
+const port = process.env.PORT || 8080;
+
+//Dev
+const { Firestore } = require("@google-cloud/firestore");
+const db = new Firestore();
+
+//Server. TODO: Come back to this later
+// const admin = require("firebase-admin");
+// admin.initializeApp({
+//    credential: admin.credential.cert(require("./service-account-key.json")),
+// });
+// const db = admin.firestore();
+
+const app = express();
+
+app.use(express.json());
+
+app.get("/viewcount", async (req, res) => {
+   const query = await db.collection("View-Count").doc("4CDm4vB3rIZweQsvzSy9").get();
+   const data = query.data();
+
+   if (data) {
+      res.json(data);
+   } else {
+      res.status(500).json({ error: "An error has occurred." });
+   }
+});
+
+app.post("/increment", async (req, res) => {
+   try {
+      const query = await db.collection("View-Count").doc("4CDm4vB3rIZweQsvzSy9").get();
+      const currentViewCount = query.data().count;
+      const newCount = currentViewCount + 1;
+      await db.collection("View-Count").doc("4CDm4vB3rIZweQsvzSy9").update({ count: newCount });
+      return res.status(201).json({ count: newCount });
+   } catch {
+      res.status(500).json({ error: "An error has occurred" });
+   }
+});
+
+// app.get("/", async (req, res) => {
+//    res.send("troubleshooting");
+// });
+
+app.listen(port, () => {
+   console.log(`Listening on port ${port}`);
+});
