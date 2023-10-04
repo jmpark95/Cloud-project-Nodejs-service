@@ -1,5 +1,6 @@
 const express = require("express");
 const port = process.env.PORT || 8080;
+const cors = require("cors");
 
 //Dev
 const { Firestore } = require("@google-cloud/firestore");
@@ -14,6 +15,7 @@ const db = new Firestore();
 
 const app = express();
 
+app.use(cors());
 app.use(express.json());
 
 app.get("/viewcount", async (req, res) => {
