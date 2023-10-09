@@ -37,7 +37,7 @@ app.post("/increment", async (req, res) => {
       await db.collection("viewCountCollection").doc("viewCountDocumentID").update({ count: newCount });
       return res.status(201).json({ count: newCount });
    } catch {
-      res.status(500).json({ error: "An error has occurred" });
+      res.status(500).json({ error: "An error has occurred!" });
    }
 });
 
