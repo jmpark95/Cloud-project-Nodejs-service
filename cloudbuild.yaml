@@ -1,17 +1,17 @@
 steps:
    - name: "gcr.io/cloud-builders/docker"
-     args: ["build", "-t", "gcr.io/$PROJECT_ID/NodeService:$COMMIT_SHA", "."]
+     args: ["build", "-t", "gcr.io/$PROJECT_ID/nodeservice:$COMMIT_SHA", "."]
    - name: "gcr.io/cloud-builders/docker"
-     args: ["push", "gcr.io/$PROJECT_ID/NodeService:$COMMIT_SHA"]
+     args: ["push", "gcr.io/$PROJECT_ID/nodeservice:$COMMIT_SHA"]
    - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
      entrypoint: gcloud
      args:
         - "run"
         - "deploy"
-        - "NodeService"
+        - "nodeservice"
         - "--image"
-        - "gcr.io/$PROJECT_ID/NodeService:$COMMIT_SHA"
+        - "gcr.io/$PROJECT_ID/nodeservice:$COMMIT_SHA"
         - "--region"
         - "australia-southeast1"
 images:
-   - "gcr.io/$PROJECT_ID/NodeService:$COMMIT_SHA"
+   - "gcr.io/$PROJECT_ID/nodeservice:$COMMIT_SHA"
