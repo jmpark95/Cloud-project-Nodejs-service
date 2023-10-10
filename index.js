@@ -18,7 +18,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.get("/viewcounttt", async (req, res) => {
+app.get("/viewcount", async (req, res) => {
    const query = await db.collection("viewCountCollection").doc("viewCountDocumentID").get();
    const data = query.data();
 
