@@ -24,17 +24,17 @@ steps:
    - name: "gcr.io/cloud-builders/docker"
      args: ["push", "gcr.io/static-website-project-400707/nodejsimage"]
      # Deploy container image to Cloud Run
-   #  - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
-   #    entrypoint: gcloud
-   #    args:
-   #       [
-   #          "run",
-   #          "deploy",
-   #          "nodeservice",
-   #          "--image",
-   #          "gcr.io/static-website-project-400707/nodejsimage",
-   #          "--region",
-   #          "australia-southeast1",
-   #       ]
+   - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
+     entrypoint: gcloud
+     args:
+        [
+           "run",
+           "deploy",
+           "nodeservice",
+           "--image",
+           "gcr.io/static-website-project-400707/nodejsimage",
+           "--region",
+           "australia-southeast1",
+        ]
 images:
    - gcr.io/static-website-project-400707/nodejsimage
